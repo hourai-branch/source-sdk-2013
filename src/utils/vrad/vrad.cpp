@@ -63,6 +63,7 @@ bool        g_bNoSkyRecurse = false;
 bool		g_bDumpPropLightmaps = false;
 bool		g_bNoAO = false; // Variable for Flag that disables AO when it sets this var to true
 bool		g_bNoSoften = false; // Variable for Flag that makes sure AO doesnt soften when it sets this var to true
+int			g_bAOSamples = 32;
 
 
 int			junk;
@@ -2394,11 +2395,23 @@ int ParseCommandLine( int argc, char **argv, bool *onlydetail )
 		{
 			g_bStaticPropLighting = true;
 		}
-		else if (!stricmp(argv[i], "-NoAmbientOcclusion"))
+		else if (!stricmp(argv[i], "-NoAO"))
 		{
 			g_bNoAO = true;
 		}
-		else if (!stricmp(argv[i], "-NoSoftAmbientOcclusion"))
+		else if (!Q_stricmp(argv[i], "-AOsamples"))
+		{
+			if (isdigit(i))
+			{
+				g_bAOSamples = atoi(argv[i]);
+			}
+			else
+			{
+				Warning("Error: expected a value after '-AOsamples'\n");
+				return -1;
+			}
+		}
+		else if (!stricmp(argv[i], "-NoSoftAO"))
 		{
 			g_bNoSoften = true;
 		}
@@ -2886,8 +2899,9 @@ void PrintUsage( int argc, char **argv )
 		"  -noskyboxrecurse : Turn off recursion into 3d skybox (skybox shadows on world)\n"
 		"  -nossprops      : Globally disable self-shadowing on static props\n"
 		"\n"
-		"  -NoAmbientOcclusion : Disable Baking Ambient Occlusion\n"
-		"  -NoSoftAmbientOcclusion : Give surfaces a harsher linear N.L look instead of a softer look\n"
+		"  -noao : Disable Baking Ambient Occlusion\n"
+		"  -nosoftao : Give Occluded surfaces a harsher linear N.L look instead of a softer look\n"
+		"  -aosamples n : Specify the Ambient Occlusion sample count (default: 32)\n"
 #if 1 // Disabled for the initial SDK release with VMPI so we can get feedback from selected users.
 		);
 #else

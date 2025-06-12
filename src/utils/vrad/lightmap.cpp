@@ -37,6 +37,7 @@ enum
 
 extern bool g_bNoAO;
 extern bool g_bNoSoften;
+extern int  g_bAOSamples;
 
 float CalculateAmbientOcclusion( Vector *pPosition, Vector *pNormal )
 {
@@ -101,7 +102,7 @@ fltx4 CalculateAmbientOcclusion4( const FourVectors &position4, const FourVector
 	}
 
 	DirectionalSampler_t sampler;
-	int nSamples = 32;
+	int nSamples = g_bAOSamples;
 	if ( do_fast )
 	{
 		nSamples /= 2;
