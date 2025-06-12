@@ -2399,7 +2399,7 @@ int ParseCommandLine( int argc, char **argv, bool *onlydetail )
 		{
 			g_bNoAO = true;
 		}
-		else if (!Q_stricmp(argv[i], "-AOsamples"))
+		else if (!Q_stricmp(argv[i], "-AOSamples"))
 		{
 			if (isdigit(i))
 			{
@@ -2407,7 +2407,7 @@ int ParseCommandLine( int argc, char **argv, bool *onlydetail )
 			}
 			else
 			{
-				Warning("Error: expected a value after '-AOsamples'\n");
+				Warning("Error: expected a value after '-AOSamples'\n");
 				return -1;
 			}
 		}
@@ -2899,9 +2899,9 @@ void PrintUsage( int argc, char **argv )
 		"  -noskyboxrecurse : Turn off recursion into 3d skybox (skybox shadows on world)\n"
 		"  -nossprops      : Globally disable self-shadowing on static props\n"
 		"\n"
-		"  -noao : Disable Baking Ambient Occlusion\n"
-		"  -nosoftao : Give Occluded surfaces a harsher linear N.L look instead of a softer look\n"
-		"  -aosamples n : Specify the Ambient Occlusion sample count (default: 32)\n"
+		"  -NoAO : Disable Baking Ambient Occlusion\n"
+		"  -NoSoftAO : Give Occluded surfaces a harsher linear N.L look instead of a softer look\n"
+		"  -AOSamples <n> : Specify the Ambient Occlusion sample count (default: 32)\n"
 #if 1 // Disabled for the initial SDK release with VMPI so we can get feedback from selected users.
 		);
 #else
