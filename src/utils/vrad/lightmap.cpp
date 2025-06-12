@@ -34,8 +34,9 @@ enum
 //==========================================================================//
 // Ambient occlusion
 //==========================================================================//
-bool g_bNoSoften = false;
-bool g_bNoAO = false;
+
+extern bool g_bNoAO;
+extern bool g_bNoSoften;
 
 float CalculateAmbientOcclusion( Vector *pPosition, Vector *pNormal )
 {

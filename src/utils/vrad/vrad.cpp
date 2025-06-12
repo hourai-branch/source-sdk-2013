@@ -61,6 +61,8 @@ bool		bRed2Black = true;
 bool		g_bFastAmbient = false;
 bool        g_bNoSkyRecurse = false;
 bool		g_bDumpPropLightmaps = false;
+bool		g_bNoAO = false; // Variable for Flag that disables AO when it sets this var to true
+bool		g_bNoSoften = false; // Variable for Flag that makes sure AO doesnt soften when it sets this var to true
 
 
 int			junk;
@@ -2392,6 +2394,14 @@ int ParseCommandLine( int argc, char **argv, bool *onlydetail )
 		{
 			g_bStaticPropLighting = true;
 		}
+		else if (!stricmp(argv[i], "-NoAmbientOcclusion"))
+		{
+			g_bNoAO = true;
+		}
+		else if (!stricmp(argv[i], "-NoSoftAmbientOcclusion"))
+		{
+			g_bNoSoften = true;
+		}
 		else if ( !stricmp( argv[i], "-StaticPropNormals" ) )
 		{
 			g_bShowStaticPropNormals = true;
@@ -2805,7 +2815,6 @@ void PrintCommandLine( int argc, char **argv )
 	Warning( "\n\n" );
 }
 
-
 void PrintUsage( int argc, char **argv )
 {
 	PrintCommandLine( argc, argv );
@@ -2877,6 +2886,8 @@ void PrintUsage( int argc, char **argv )
 		"  -noskyboxrecurse : Turn off recursion into 3d skybox (skybox shadows on world)\n"
 		"  -nossprops      : Globally disable self-shadowing on static props\n"
 		"\n"
+		"  -NoAmbientOcclusion : Disable Baking Ambient Occlusion\n"
+		"  -NoSoftAmbientOcclusion : Give surfaces a harsher linear N.L look instead of a softer look\n"
 #if 1 // Disabled for the initial SDK release with VMPI so we can get feedback from selected users.
 		);
 #else
